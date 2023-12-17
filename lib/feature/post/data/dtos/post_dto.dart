@@ -1,7 +1,7 @@
 class PostDto {
   PostDto({
-    num? userId,
-    num? id,
+    int? userId,
+    int? id,
     String? title,
     String? body,
   }) {
@@ -17,13 +17,13 @@ class PostDto {
     _title = json['title'];
     _body = json['body'];
   }
-  num? _userId;
-  num? _id;
+  int? _userId;
+  int? _id;
   String? _title;
   String? _body;
   PostDto copyWith({
-    num? userId,
-    num? id,
+    int? userId,
+    int? id,
     String? title,
     String? body,
   }) =>
@@ -33,8 +33,8 @@ class PostDto {
         title: title ?? _title,
         body: body ?? _body,
       );
-  num? get userId => _userId;
-  num? get id => _id;
+  int? get userId => _userId;
+  int? get id => _id;
   String? get title => _title;
   String? get body => _body;
 
