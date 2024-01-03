@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod_app_architecture/feature/post/data/data_sources/post_data_source_impl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod_app_architecture/feature/post/presentation/controllers/post_controller_impl.dart';
 
-class PostPage extends StatefulWidget {
-  const PostPage({Key? key}) : super(key: key);
-
-  @override
-  State<PostPage> createState() => _PostPageState();
-}
-
-class _PostPageState extends State<PostPage> {
-  void getData() async {
-    final data = await PostDataSourceImpl().fetchPosts();
-    print('data: ${data[0].title}');
-  }
+class PostPage extends ConsumerWidget {
+  const PostPage({super.key});
 
   @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final postProvider = ref.watch(postControllerProvider);
+    return Scaffold(
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: postProvider.when(
+          data: (data) =>
+              Column(children: data.map((e) => Text('${e.title}')).toList()),
+          error: (err, stack) => Text('$err'),
+          loading: () => const CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
 }

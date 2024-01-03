@@ -15,8 +15,8 @@ class PostDataSourceImpl implements PostDataSource {
       final response = await _client.get(
         Uri.parse('https://jsonplaceholder.typicode.com/posts'),
       );
-      final List data = jsonDecode(response.body) as List;
-      return data.map((data) => PostDto.fromJson(data)).toList();
+      final List rawJson = jsonDecode(response.body) as List;
+      return rawJson.map((data) => PostDto.fromJson(data)).toList();
     } catch (_) {
       rethrow;
     }
