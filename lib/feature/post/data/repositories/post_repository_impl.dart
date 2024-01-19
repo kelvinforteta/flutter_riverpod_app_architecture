@@ -15,7 +15,6 @@ class PostRepositoryImpl implements PostRepository {
     return postDto
         .map(
           (post) => Post(
-            id: post.id ?? 0,
             title: post.title ?? '',
             body: post.body,
           ),
